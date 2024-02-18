@@ -1,10 +1,9 @@
 import time
 import keyboard
+import pyautogui
 import pywhatkit
 import PySimpleGUI as sg
-from colorama import Fore, Style, Back
 
-orduak = ["00"]
 
 # Interfaze grafikoaren konfigurazioa
 sg.theme("Reddit")
@@ -47,7 +46,10 @@ def spam(mezua, aldiak):
 
 def programatuta(zenbakia, mezua, orduak, minutuak):
     try:
-        pywhatkit.sendwhatmsg(zenbakia, mezua, orduak, minutuak, wait_time=30, close_time=4)
+        pywhatkit.sendwhatmsg(zenbakia, mezua, orduak, minutuak)
+        pyautogui.click(1792, 1020)
+        time.sleep(2)
+        keyboard.press_and_release('enter')
     except:
         window["-OharraPrg-"].update("Ezin izan da mezua bidali", text_color="#c40000")
 
@@ -73,7 +75,7 @@ def main():
             mezua_prg = value["-MezuaPrg-"]
             if mezua_prg != "":
                 try:
-                    orduak, minutuak = int(value["-Orduak-"]), int(value["-Minutuak-"])
+                    orduak, minutuak = int(value["-Orduak-"]), int(value["-Minutuak-"])+1
                     zenbakia = value["-Zenbakia-"]
                     window["-OharraPrg-"].update("Mezua bidaltzen...", text_color="#076f8c")
                     time.sleep(2)
