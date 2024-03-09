@@ -46,7 +46,7 @@ def spam(mezua, aldiak):
 
 def programatuta(zenbakia, mezua, orduak, minutuak):
     try:
-        pywhatkit.sendwhatmsg(zenbakia, mezua, orduak, minutuak)
+        pywhatkit.sendwhatmsg(zenbakia, mezua, orduak, minutuak, wait_time=18)
         pyautogui.click(1792, 1020)
         time.sleep(2)
         keyboard.press_and_release('enter')
@@ -75,7 +75,7 @@ def main():
             mezua_prg = value["-MezuaPrg-"]
             if mezua_prg != "":
                 try:
-                    orduak, minutuak = int(value["-Orduak-"]), int(value["-Minutuak-"])+1
+                    orduak, minutuak = int(value["-Orduak-"]), int(value["-Minutuak-"])
                     zenbakia = value["-Zenbakia-"]
                     window["-OharraPrg-"].update("Mezua bidaltzen...", text_color="#076f8c")
                     time.sleep(2)

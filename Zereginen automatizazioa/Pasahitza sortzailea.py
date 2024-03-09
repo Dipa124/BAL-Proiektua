@@ -50,7 +50,7 @@ def main():
                 window["-Pasahitza-"].update(str(pasahitza_sortzailea(luzeera)))
 
             except:
-                window["-Oharra-"].update("Emandako erantzuna ez da zuzena! Saiatu berriro", text_color="#c40000")
+                window["-Oharra-"].update("Ziurtatu aukeratutako luzeera zenabki osoa dela mesedez!", text_color="#c40000")
         if event == "-Kopiatu-":
             arbela.copy(value["-Pasahitza-"])
             window["-Oharra-"].update("Pasahitza ordenagailuko arbelera kopiatu da!", text_color="#076f8c")
