@@ -80,6 +80,7 @@ def main():
                     window["-OharraPrg-"].update("Mezua bidaltzen...", text_color="#076f8c")
                     time.sleep(2)
                     programatuta(zenbakia, mezua_prg, orduak, minutuak)
+                    window["-OharraPrg-"].update("Mezua bidali da!", text_color="#076f8c")
                 except:
                     window["-OharraPrg-"].update("Sarrera okerrak, saiatu berriro", text_color="#c40000")
             else:
