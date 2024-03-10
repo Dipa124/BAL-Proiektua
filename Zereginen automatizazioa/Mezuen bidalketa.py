@@ -9,7 +9,7 @@ import PySimpleGUI as sg
 sg.theme("Reddit")
 layout = [[sg.T('MEZU PROGRAMATUAK', font=("Segoe UI", 20, "bold"), justification='c', expand_x=True)],
           [sg.Text("SPAM MEZUA:", font=("Futura", 11, "bold")),],
-          [sg.Text("Bidali nahi den mezua eta errepikatu nahi den aldiak aukeratu:", font=("Futura", 11))],
+          [sg.Text("Bidali nahi den mezua eta errepikatu nahi den aldiak zehaztu:", font=("Futura", 11))],
           [sg.Input("", expand_x=True, key="-MezuaSpm-"),
            sg.Spin(list(range(1, 12000)), key="-Aldiak-"),
            sg.Button("BIDALI", key="-BidaliSpm-", font=("Segoe UI", 9, "bold"))],
@@ -18,7 +18,7 @@ layout = [[sg.T('MEZU PROGRAMATUAK', font=("Segoe UI", 20, "bold"), justificatio
           [sg.HorizontalSeparator(p=12)],
 
           [sg.Text("MEZU PROGRAMATUA:", font=("Futura", 11, "bold")),],
-          [sg.Text("Bidali nahi den mezua eta errepikatu nahi den aldiak aukeratu:", font=("Futura", 11))],
+          [sg.Text("Bidali nahi den mezua zehaztu:", font=("Futura", 11))],
           [sg.Input("", expand_x=True, key="-MezuaPrg-")],
           [sg.Text("Ordua aukeratu: ", font=("Futura", 11)),
            sg.Spin([str(i).zfill(2) for i in range(25)], key="-Orduak-", pad=0),
@@ -27,6 +27,20 @@ layout = [[sg.T('MEZU PROGRAMATUAK', font=("Segoe UI", 20, "bold"), justificatio
            sg.Text("Telefono zenbakia zehaztu: ", font=("Futura", 11)),
            sg.Input("", expand_x=True, key="-Zenbakia-"),
            sg.Button("BIDALI", key="-BidaliPrg-", font=("Segoe UI", 9, "bold"))
+           ],
+
+          [sg.HorizontalSeparator(p=12)],
+
+          [sg.Text("MEZU PROGRAMATUA TALDERA:", font=("Futura", 11, "bold")),],
+          [sg.Text("Bidali nahi den mezua zehaztu:", font=("Futura", 11))],
+          [sg.Input("", expand_x=True, key="-MezuaPrgTld-")],
+          [sg.Text("Ordua aukeratu: ", font=("Futura", 11)),
+           sg.Spin([str(i).zfill(2) for i in range(25)], key="-OrduakTld-", pad=0),
+           sg.Text(":", font=("Futura", 11, "bold"), pad=0),
+           sg.Spin([str(i).zfill(2) for i in range(60)], key="-MinutuakTld-", pad=0),
+           sg.Text("Taldearen ID-a zehaztu: ", font=("Futura", 11)),
+           sg.Input("", expand_x=True, key="-ID-"),
+           sg.Button("BIDALI", key="-BidaliPrgTld-", font=("Segoe UI", 9, "bold"))
            ],
           [sg.Text("".upper(), key="-OharraPrg-")],
           ]
@@ -47,6 +61,16 @@ def spam(mezua, aldiak):
 def programatuta(zenbakia, mezua, orduak, minutuak):
     try:
         pywhatkit.sendwhatmsg(zenbakia, mezua, orduak, minutuak, wait_time=18)
+        pyautogui.click(1792, 1020)
+        time.sleep(2)
+        keyboard.press_and_release('enter')
+    except:
+        window["-OharraPrg-"].update("Ezin izan da mezua bidali", text_color="#c40000")
+
+
+def programatutaTaldea(id, mezua, orduak, minutuak):
+    try:
+        pywhatkit.sendwhatmsg_to_group(id, mezua, orduak, minutuak, wait_time=18)
         pyautogui.click(1792, 1020)
         time.sleep(2)
         keyboard.press_and_release('enter')
@@ -80,6 +104,22 @@ def main():
                     window["-OharraPrg-"].update("Mezua bidaltzen...", text_color="#076f8c")
                     time.sleep(2)
                     programatuta(zenbakia, mezua_prg, orduak, minutuak)
+                    window["-OharraPrg-"].update("Mezua bidali da!", text_color="#076f8c")
+                except:
+                    window["-OharraPrg-"].update("Sarrera okerrak, saiatu berriro", text_color="#c40000")
+            else:
+                window["-OharraPrg-"].update("Sarrera okerrak, saiatu berriro", text_color="#c40000")
+
+        if event == "-BidaliPrgTld-":
+            window["-OharraPrg-"].update("")
+            mezua_prg_Tld = value["-MezuaPrgTld-"]
+            if mezua_prg_Tld != "":
+                try:
+                    orduakTld, minutuakTld = int(value["-OrduakTld-"]), int(value["-MinutuakTld-"])
+                    id = value["-ID-"]
+                    window["-OharraPrg-"].update("Mezua bidaltzen...", text_color="#076f8c")
+                    time.sleep(2)
+                    programatutaTaldea(id, mezua_prg_Tld, orduakTld, minutuakTld)
                     window["-OharraPrg-"].update("Mezua bidali da!", text_color="#076f8c")
                 except:
                     window["-OharraPrg-"].update("Sarrera okerrak, saiatu berriro", text_color="#c40000")
