@@ -22,7 +22,7 @@ def listen(model):
     os.system("cls")
     mic = sr.Microphone()
     with mic as source:
-        r.adjust_for_ambient_noise(source, duration=5)
+        # r.adjust_for_ambient_noise(source, duration=5)
         # r.dynamic_energy_threshold = True
         print("Entzuten...")
         audio = r.listen(source)
@@ -32,7 +32,7 @@ def listen(model):
 
 
 def main():
-    start = listen("tiny")
+    start = listen("small")
     print(start)
     if "nano" in start:
         talk("Kaixo Diego!, ¿zer egin nahi duzu?")
