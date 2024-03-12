@@ -26,25 +26,21 @@ def listen(model):
         # r.dynamic_energy_threshold = True
         print("Entzuten...")
         audio = r.listen(source)
+        os.system("cls")
+        print("Ulertzen...")
 
     text = r.recognize_whisper(audio, language=language, model=model)
     return text
 
 
 def main():
-    start = listen("small")
-    print(start)
-    if "nano" in start:
-        talk("Kaixo Diego!, ¿zer egin nahi duzu?")
-    else:
-        talk("¿Zer egin nahi duzu?")
-
+    talk("Kaixo Diego!, ¿zer egin nahi duzu?")
     text = listen("small")
-    print(text)
+    #print(text)
     while True:
         if "ireki" in text.lower():
             talk("Bikain, proiektua irekitzen!, Ondo izan!")
-            print("Irekitzen...")
+            #print("Irekitzen...")
             webbrowser.open(aurkezpena)
             keyboard.press_and_release("F11")
             break
